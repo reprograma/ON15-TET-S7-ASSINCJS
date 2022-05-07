@@ -150,7 +150,7 @@ function buscarPreco(produto) {
     } else if (produto === "lace"){
       return {
         nome: "Lace",
-        preco: 3500.00
+        preco: 3900.00
       }
     } else {
       return "Produto não encontrado"
@@ -207,6 +207,14 @@ async function calcularValorEmReal(precoEmDolar) {
 
 ---
 ## Referências
+<br>
+
+### [Slide da aula](https://docs.google.com/presentation/d/1rXgJK5y64Fywgz-4lZs13GpVzfCZYcYVtHWjs0X9Nto/edit?usp=sharing)
+### [Slide do Ciclo de vida do JS (event loop):](https://drive.google.com/file/d/1pjX-6yLNn_vwvbZNFlyaXPtJ1sT6XI9m/view?usp=sharing)
+
+<br>
+
+
 | Conteúdo      | Fonte              | Link                                                                                                                                       |
 | ------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | JS Assíncrono |  Medium            | https://medium.com/reactbrasil/como-o-javascript-funciona-o-event-loop-e-o-surgimento-da-programação-assíncrona-5-maneiras-de-18d0b8d6849a |

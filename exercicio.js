@@ -22,7 +22,7 @@ function buscarPreco(produto) {
       } else if (produto === "lace"){
         return {
           nome: "Lace",
-          preco: 3500.00
+          preco: 3900.00
         }
       } else {
         return "Produto não encontrado"

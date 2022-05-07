@@ -10,3 +10,21 @@
     2. A partir da id da usuária obter o endereço cadastrado;
     3. A partir da id da usuária obter o histórico de pedidos;
 */
+
+const pegarUsuaria = () => {
+  //Utilização do setTimeout para simular requisição externa
+  setTimeout(() => {
+    return {
+      nome: "Lucilania",
+      email: "luci@reprograma.com",
+      id: 981273981273
+    }
+  }, 1000)
+}
+
+const pegarEndereco = () => {}
+
+const pegarPedidos = () => {}
+
+const usuaria = pegarUsuaria()
+console.log('nome da usuária: ' + usuaria.nome)
