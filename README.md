@@ -169,7 +169,7 @@ function calcularParcela(preco) {
 ```
 
 2. Resolva usando async/await: 
-  Você quer saber quanto vai pagar em reais por um produto comprado nos EUA e para isso precisa consultar numa "API" de cotação para descobrir o valor do Dólar no momento da compra (você deve usar o valor do dólar comercial) e calcular o valor em Real, em seguida precisa consultar outra "API" que retorna o valor de dois juros que serão cobrados sob o preço em Real e retornar o valor final no console: `O preço final do seu produto é R$****,**`
+  Você quer saber quanto vai pagar em reais por um produto comprado nos EUA e para isso precisa consultar numa "API" de cotação para descobrir o valor do Dólar no momento da compra (você deve usar o valor do dólar comercial) e calcular o valor em Real, em seguida precisa consultar outra "API" que retorna o valor de dois juros que serão cobrados sob o preço em Real e retornar o valor final no console: `O preço final do seu produto é R$R$7474,08`
 
   dados:
   `const precoEmDolar = 1270  //preço em dólar`
@@ -240,6 +240,9 @@ async function calcularValorEmReal(precoEmDolar) {
 | Promises        | Erick Wendel       | https://www.youtube.com/watch?v=_gmXKsVS40s |                
 | async/await     | DevPleno           | https://www.youtube.com/watch?v=D01xWkT2W7c |
 
+## Agradecimento:  
+
+Todas as minhas professoras e amigas do {reprograma} com quem sempre aprendo ♥️
 
 
 
