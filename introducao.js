@@ -1,40 +1,53 @@
-// function
+//funcion
 
 function somar(numero) {
     console.log(numero + numero)
     return numero + numero
 }
 
-// arrow function
+//arrow function
 
 let somar = (numero) => {
     console.log(numero + numero)
     return numero + numero
 }
 
-// fluxo síncrono/assíncrono
+// fluxo síncrono/assíncrono    
 
-console.log(`Primeiro`)
+console.log('Esse console vai retornar primeiro')
 
 setTimeout(() => {
-    console.log(`Segundo`)
+    console.log('Esse console vai retornar segundo')
 }, 2000)
 
-console.log(`Terceiro`)
+console.log('Esse console vai retornar terceiro')
 
-// exemplo
+//exemplo
 
 let mostrarPrimeiraParte = () => {
-    setTimeour (() => {
-        return console.log("Esta mensagem deve")
-    }, 3000)
+    setTimeout(() => {
+        return console.log("Esta mensagem deve ")
+    }, 4000)
 }
 
 let mostrarSegundaParte = () => {
-    setTimeout (() =>{
+    setTimeout(() => {
         return console.log("completar esta!")
-    }, 2000)
+    }, 6000)
 }
 
 mostrarPrimeiraParte()
-mostrarPrimeiraParte() // esse exemplo vai na verdade mostrar a segunda parte primeiro, porque tem menos milissegundos.
+mostrarSegundaParte()
+
+//exemplo
+
+let somar = (numero) => {
+    console.log("primeiro print: " + (numero + numero))
+    setTimeout(() => {
+        console.log("segundo print: " + (numero + numero))
+        return numero + numero}), 6000
+}
+
+let imprimirSoma = (resultadoSoma) => console.log("print: " + resultadoSoma)
+
+imprimirSoma(somar(3))
