@@ -6,6 +6,8 @@
 
 // função que simula busca num banco que retorna o preço do produto:
 
+
+
  function buscarPreco(produto) {
    return new Promise ((resolve, reject) => {
     setTimeout(() => {
@@ -42,18 +44,32 @@
      }, 2000);
    })
   }
-const encontrarPreco = buscarPreco("lace")
-encontrarPreco.then((produto)=> {
-  const produtoNome = produto.nome;
-  const produtoPreco = produto.preco
+// const encontrarPreco = buscarPreco("lace")
+// encontrarPreco.then((produto)=> {
+//   const produtoNome = produto.nome;
+//   const produtoPreco = produto.preco
 
-  const encontrarParcela = calcularParcela(produtoPreco, produtoNome);
-  encontrarParcela.then((valorParcela)=> {
-    const parcelas = valorParcela;
-    const quantidadeParcelas = produtoPreco / valorParcela;
+//   const encontrarParcela = calcularParcela(produtoPreco, produtoNome);
+//   encontrarParcela.then((valorParcela)=> {
+//     const parcelas = valorParcela;
+//     const quantidadeParcelas = produtoPreco / valorParcela;
 
-    console.log(`SUA ${produtoNome} custa R$${produtoPreco.tofixed(2).replace(".",".",)}e voce pagara em $(quantidadeParcelas)`)})
+//     console.log(`SUA ${produtoNome} custa R$${produtoPreco.tofixed(2).replace(".",".",)}e voce pagara em $(quantidadeParcelas)`)})
 
-  }).catch((error) => {
-    console.error("Erro encontrado", err);
-  })
+//   }).catch((error) => {
+//     console.error("Erro encontrado", err);
+//   })
+
+async function fazerCompras(produto){
+  try {
+    const mercadoria = await buscarPreco(produto);
+    const valorParcela = await calcularParcela(mercadoria.preco);
+    const quantidadeParcelas = mercadoria.preco / valorParcela;
+    return console.log(`Sua ${mercadoria.nome} custa R$${mercadoria.preco.tofixed(2).replace(".",".")} e voce pagara em $(quantidadeParcelas)`)}
+  }
+  
+  }
+
+
+
+fazerCompras("lace");
