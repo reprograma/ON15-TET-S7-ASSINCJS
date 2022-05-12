@@ -7,37 +7,37 @@ e você pagará em 10x de R$390,00`
 
 // função que simula busca num banco que retorna o preço do produto:
 
-function buscarPreco(produto) {
+ function buscarPreco(produto) {
     setTimeout(() => {
-      if (produto === "hormonios") {
-        return {
+       if (produto === "hormonios") {
+         return {
           nome: "Hormônios",
           preco: 99.00
         }
-      } else if (produto === "unhas gel") {
+       } else if (produto === "unhas gel") {
         return {
           nome: "Unhas em Gel",
           preco: 190.00
         }
       } else if (produto === "lace"){
         return {
-          nome: "Lace",
+           nome: "Lace",
           preco: 3500.00
         }
-      } else {
-        return "Produto não encontrado"
-      }
+     } else {
+         return "Produto não encontrado"
+     }
     }, 2000)
-  }
+   }
   
   // função que simula busca num banco que retorna o valor das parcelas:
   
-  function calcularParcela(preco) {
-    let parcelasDesejadas = 10
-    setTimeout(() => {
-      return preco * parcelasDesejadas
-    }, 2000)
-  }
+   function calcularParcela(preco) {
+     let parcelasDesejadas = 10
+     setTimeout(() => {
+        return preco * parcelasDesejadas
+      }, 2000)
+    }
   
   /*
   2. Resolva usando async/await: 
@@ -77,6 +77,12 @@ function buscarPreco(produto) {
   }
   
   async function calcularValorEmReal(precoEmDolar) {
-    try {} 
-    catch (error) {}
+    try {
+      const precos = await transformarDolar (dolar)
+      const juros = await buscarJurosImportacao (juros)
+      return console.log(dolar, juros)
+    } 
+    catch (error) {
+      console.log(error)
+    }
   }
