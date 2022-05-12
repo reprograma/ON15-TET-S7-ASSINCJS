@@ -24,7 +24,7 @@
       } else if (produto === "lace"){
         return resolve({
            nome: "Lace",
-          preco: 3500.00
+          preco: 3900.00
         });
      } else {
          return "Produto não encontrado"
@@ -44,6 +44,9 @@
      }, 2000);
    })
   }
+
+  //Tentativa com Promises
+
 // const encontrarPreco = buscarPreco("lace")
 // encontrarPreco.then((produto)=> {
 //   const produtoNome = produto.nome;
@@ -60,16 +63,26 @@
 //     console.error("Erro encontrado", err);
 //   })
 
+
+// Tentativa com async/await
+
 async function fazerCompras(produto){
   try {
     const mercadoria = await buscarPreco(produto);
     const valorParcela = await calcularParcela(mercadoria.preco);
     const quantidadeParcelas = mercadoria.preco / valorParcela;
-    return console.log(`Sua ${mercadoria.nome} custa R$${mercadoria.preco.tofixed(2).replace(".",".")} e voce pagara em $(quantidadeParcelas)`)}
+    return console.log(`Sua ${mercadoria.nome} custa R$${mercadoria.preco.toFixed(2).replace(".",",")} e voce pagara em ${quantidadeParcelas} x de R$ ${valorParcela.toFixed(2).replace(".",",")}`)
+  } catch( error){
+    console.error(error)
+  }
   }
   
-  }
+  
 
 
 
 fazerCompras("lace");
+
+
+// Esta atividade foi feita com muito sacrifio e ajuda das outras meninas do grupo, pois nao consegui 
+//entender o conteudo, mesmo assistindo as aulas por varias e varias vezes.
