@@ -22,13 +22,14 @@ function buscarPreco(produto) {
       } else if (produto === "lace"){
         return {
           nome: "Lace",
-          preco: 3500.00
+          preco: 3900.00
         }
       } else {
         return "Produto não encontrado"
       }
     }, 2000)
   }
+
   
   // função que simula busca num banco que retorna o valor das parcelas:
   
@@ -38,6 +39,21 @@ function buscarPreco(produto) {
       return preco * parcelasDesejadas
     }, 2000)
   }
+
+
+
+  buscarPreco(calcularPreco = (error, produto) => {
+    if (error){
+      return console.log("Erro na compra");
+    
+    }
+    buscarPreco (produto.nome === "lace")
+    calcularPreco = (error, preco) =>{
+      
+    }
+  })
+
+  
   
   /*
   2. Resolva usando async/await: 
