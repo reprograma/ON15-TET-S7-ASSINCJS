@@ -7,78 +7,55 @@ ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o 
 */
 
 // função que simula busca num banco que retorna o preço do produto:
+// Estrutura de uma promisse:
+// new Promise((resolve, reject) => {
+//   resolve(resultado)
+//   reject(erro)
+// })
 
 function buscarPreco(produto) {
+  return new Promise ((resolve, reject) => {
     setTimeout(() => {
       if (produto === "hormonios") {
-        return {
+        return resolve ({
           nome: "Hormônios",
           preco: 99.00
-        }
+        })
       } else if (produto === "unhas gel") {
-        return {
+        return resolve ({
           nome: "Unhas em Gel",
           preco: 190.00
-        }
+        })
       } else if (produto === "lace"){
-        return {
+        return resolve ({
           nome: "Lace",
           preco: 3900.00
-        }
+        })
       } else {
-        return "Produto não encontrado"
+        return reject ("Produto não encontrado")
       }
   }, 2000)
+  })
 }
-  
+ 
 // função que simula busca num banco que retorna o valor das parcelas:
   
 function calcularParcela(preco) {
-  let parcelasDesejadas = 10
-  setTimeout(() => {
-    return preco * parcelasDesejadas
-  }, 2000)
-}
-  
-
-/*
-2. Resolva usando async/await: 
-Você quer saber quanto vai pagar em reais por um produto comprado nos EUA e para isso precisa consultar numa "API"
-de cotação para descobrir o valor do Dólar no momento da compra (você deve usar o valor do dólar comercial) e calcular
-o valor em Real, em seguida precisa consultar outra "API" que retorna o valor de dois juros que serão cobrados sob o 
-preço em Real e retornar o valor final 
-
-dados:
-`const precoEmDolar = 1270  //preço em dólar`
-valor de retorno no console: `O preço final do seu produto é R$7474,08`
-dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final
-*/
-
-function buscarPrecoDolar() {
-  return new Promise((resolve) => {
+  return new Promise ((resolve, reject) => {
+    let parcelasDesejadas = 10
     setTimeout(() => {
-      resolve({
-        comercial: "5.03",
-        turismo: "5.17",
-      });
-    }, 1000);
-  });
+      return resolve (preco / parcelasDesejadas)
+    }, 2000)
+  })
 }
 
-function buscarJurosImportacao() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        juros1: 0.06,
-        juros2: 0.11,
-        message:
-        "os dois juros são aplicados no valor total do produto em real",
-      });
-    }, 1000);
-  });
-}
-
-async function calcularValorEmReal(precoEmDolar) {
-  try {} 
-  catch (error) {}
-}
+buscarPreco("lace")
+  .then ((dados) => {
+    return calcularParcela(dados.preco)
+    .then ((valor) => {
+      console.log(`Sua ${dados.nome} custa R$${dados.preco.toFixed(2).replace(".",",")} e você pagará em 10x de R$${valor.toFixed(2).replace(".",",")}.`)
+    })
+  })
+  .catch((err) => {
+    console.error("Foi identificado um erro: ", err)
+})
