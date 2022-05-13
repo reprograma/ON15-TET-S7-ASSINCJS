@@ -7,38 +7,60 @@ e você pagará em 10x de R$390,00`
 
 // função que simula busca num banco que retorna o preço do produto:
 
-function buscarPreco(produto) {
+const buscarPreco = (produto) => {
+  return new Promise ((resultado, rejeição) => {
     setTimeout(() => {
       if (produto === "hormonios") {
-        return {
+        return resultado ({
           nome: "Hormônios",
           preco: 99.00
-        }
+        })
       } else if (produto === "unhas gel") {
-        return {
+        return resultado ({
           nome: "Unhas em Gel",
           preco: 190.00
-        }
-      } else if (produto === "lace"){
-        return {
+        })
+      } else if (produto === "lace") {
+        return resultado ({
           nome: "Lace",
-          preco: 3500.00
-        }
+          preco: 3900.00
+        })
       } else {
-        return "Produto não encontrado"
+        return rejeição ("Produto não identificado")
       }
     }, 2000)
-  }
+  })
+
+}
   
   // função que simula busca num banco que retorna o valor das parcelas:
-  
-  function calcularParcela(preco) {
-    let parcelasDesejadas = 10
-    setTimeout(() => {
-      return preco * parcelasDesejadas
+
+const descobrirParcela = (preco) => {
+  return new Promise ((resolução, rejeição) => {
+    setTimeout (() => {
+      let parcelasDesejadas = 10
+      return resolução (preco / parcelasDesejadas)
     }, 2000)
-  }
+  })
+}  
   
+
+async function comprarProduto (produto) {
+  try {
+    const nome = await buscarPreco(produto)
+    const valorFinal = await descobrirParcela(nome.preco)
+
+    console.log(`O seu ${nome.nome} custa ${nome.preco} e você paga em 10x de ${valorFinal}`)
+  }
+  catch(error) {
+    console.log("Encontramos um erro:" , error)
+  }
+}
+
+
+comprarProduto("lace")
+
+
   /*
   2. Resolva usando async/await: 
   Você quer saber quanto vai pagar em reais por um produto comprado nos EUA e para isso precisa consultar numa "API"
@@ -52,10 +74,10 @@ function buscarPreco(produto) {
   dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final
   */
   
-  function buscarPrecoDolar() {
-    return new Promise((resolve) => {
+  buscarPrecoDolar= () => {
+    return new Promise ((resultado) => {
       setTimeout(() => {
-        resolve({
+        return resultado ({
           comercial: "5.03",
           turismo: "5.17",
         });
@@ -63,10 +85,10 @@ function buscarPreco(produto) {
     });
   }
   
-  function buscarJurosImportacao() {
-    return new Promise((resolve) => {
+  buscarJurosImportacao = () => {
+    return new Promise((resultado) => {
       setTimeout(() => {
-        resolve({
+        return resultado ({
           juros1: 0.06,
           juros2: 0.11,
           message:
@@ -76,7 +98,27 @@ function buscarPreco(produto) {
     });
   }
   
+  calcularValorEmReal()
+
   async function calcularValorEmReal(precoEmDolar) {
-    try {} 
-    catch (error) {}
+    try {
+      const precoEmDolar = 1270
+      const valorDolar = await buscarPrecoDolar()
+      
+      console.log(valorDolar.comercial)
+
+      const valorReal = (valorDolar.comercial) * precoEmDolar
+
+      console.log(valorReal)
+
+      const juros = await buscarJurosImportacao()
+
+      console.log(juros.juros1)
+      const valorFinal = valorReal + (valorReal * juros.juros1) + (valorReal * juros.juros2)
+
+      console.log(`O preço final do seu produto é R$ ${valorFinal.toFixed(2)}.`)
+    } 
+    catch (error) {
+      console.log("Foi encontrado um erro", error)
+    }
   }
