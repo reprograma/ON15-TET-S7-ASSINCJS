@@ -10,21 +10,21 @@
     2. A partir da id da usuária obter o endereço cadastrado;
     3. A partir da id da usuária obter o histórico de pedidos;
 */
+// callback, tem dois argumentos, err e retorno
+const pegarUsuaria = (callback) => {
 
-const pegarUsuaria = () => {
-  //Utilização do setTimeout para simular requisição externa
-  setTimeout(() => {
-    return {
-      nome: "Lucilania",
-      email: "luci@reprograma.com",
-      id: 981273981273
-    }
-  }, 1000)
+    setTimeout(() => {
+        return callback(null, {
+            nome: "Lucilania",
+            email: "luci@reprograma.com",
+            id: 981273981273
+        })
+    }, 1000)
+}
+let resolver = (erro, usuaria) => {
+    console.log('Usuária:' + usuaria.nome)
 }
 
+pegarUsuaria(resolver);
 const pegarEndereco = () => {}
-
 const pegarPedidos = () => {}
-
-const usuaria = pegarUsuaria()
-console.log('nome da usuária: ' + usuaria.nome)

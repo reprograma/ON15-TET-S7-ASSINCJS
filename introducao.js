@@ -1,15 +1,45 @@
+/*
+console.log("Oi Elen")
+console.log("Oieee")
+console.log("Oi Bruna")
+console.log("Oi Cris ")*/
+
 //funcion
 
 function somar(numero) {
     console.log(numero + numero)
     return numero + numero
 }
+//ou arrow function
+somar = (numero) =>
+    console.log(numero + numero)
+return numero + numero
+ou
+let somat = () => {
+        console.log(numero + numero)
+        return numero + numero
+    }
+    //a sintaxe do arrow function
+    () => {}
+
+
+
 
 //arrow function
-
-let somar = (numero) => {
-    console.log(numero + numero)
+function somar(numero) {
     return numero + numero
+}
+//ou
+somar1 = (numero) => {
+    return numero + numero
+}
+
+//função assíncrona
+
+function subtrair(num1, num2) {
+    setTimeout(() + > {
+        return num1 - num2
+    }, 1000)
 }
 
 // fluxo síncrono/assíncrono    
@@ -36,8 +66,7 @@ let mostrarSegundaParte = () => {
     }, 6000)
 }
 
-mostrarPrimeiraParte()
-mostrarSegundaParte()
+mostrarPrimeiraParte() mostrarSegundaParte()
 
 //exemplo
 
@@ -45,7 +74,8 @@ let somar = (numero) => {
     console.log("primeiro print: " + (numero + numero))
     setTimeout(() => {
         console.log("segundo print: " + (numero + numero))
-        return numero + numero}), 6000
+        return numero + numero
+    }), 6000
 }
 
 let imprimirSoma = (resultadoSoma) => console.log("print: " + resultadoSoma)
