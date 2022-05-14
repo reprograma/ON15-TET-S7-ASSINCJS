@@ -7,78 +7,58 @@ ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o 
 */
 
 // função que simula busca num banco que retorna o preço do produto:
+// Adicionando Promisse na função para conseguir usar o await
 
-function buscarPreco(produto) {
+const buscarPreco = (produto) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (produto === "hormonios") {
-        return {
+        return resolve({
           nome: "Hormônios",
           preco: 99.00
         }
+        )
       } else if (produto === "unhas gel") {
-        return {
+        return resolve({
           nome: "Unhas em Gel",
           preco: 190.00
-        }
-      } else if (produto === "lace"){
-        return {
+        })
+      } else if (produto === "lace") {
+        return resolve({
           nome: "Lace",
           preco: 3900.00
-        }
+        })
       } else {
-        return "Produto não encontrado"
+        return resolve("Produto não encontrado")
       }
-  }, 2000)
-}
-  
-// função que simula busca num banco que retorna o valor das parcelas:
-  
-function calcularParcela(preco) {
-  let parcelasDesejadas = 10
-  setTimeout(() => {
-    return preco * parcelasDesejadas
-  }, 2000)
-}
-  
+    }, 2000)
+  })
+  }
 
-/*
-2. Resolva usando async/await: 
-Você quer saber quanto vai pagar em reais por um produto comprado nos EUA e para isso precisa consultar numa "API"
-de cotação para descobrir o valor do Dólar no momento da compra (você deve usar o valor do dólar comercial) e calcular
-o valor em Real, em seguida precisa consultar outra "API" que retorna o valor de dois juros que serão cobrados sob o 
-preço em Real e retornar o valor final 
-
-dados:
-`const precoEmDolar = 1270  //preço em dólar`
-valor de retorno no console: `O preço final do seu produto é R$7474,08`
-dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final
-*/
-
-function buscarPrecoDolar() {
-  return new Promise((resolve) => {
+  // função que simula busca num banco que retorna o valor das parcelas:
+// Adicionando Promisse na função para conseguir usar o await
+const calcularParcela = (preco) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({
-        comercial: "5.03",
-        turismo: "5.17",
-      });
-    }, 1000);
-  });
+      let parcelasDesejadas = 10
+      return resolve(
+        preco / parcelasDesejadas
+      )
+    }, 2000)
+  })
 }
 
-function buscarJurosImportacao() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        juros1: 0.06,
-        juros2: 0.11,
-        message:
-        "os dois juros são aplicados no valor total do produto em real",
-      });
-    }, 1000);
-  });
+async function apresentarResultado(produtoDesejado) {
+  try {
+
+    const produto = await buscarPreco(produtoDesejado);
+    const parcela = await calcularParcela(produto.preco);
+
+    return console.log(`Seu ${produto.nome} custa ${produto.preco} e você pagará em 10x de ${parcela}`)
+  }
+  catch (error) {
+    console.log(error)
+  }
 }
 
-async function calcularValorEmReal(precoEmDolar) {
-  try {} 
-  catch (error) {}
-}
+apresentarResultado("lace")
