@@ -68,24 +68,37 @@ const buscarPreco = (produto) => {
 
 }
 
+// 3ª Crie essa função para a pessoa colocar a quantidade de parcelas que ela deseja.
+
+const numeroParcelas = (parcelas) =>{
+  return new Promise((resolve) => {
+    setTimeout (() => {
+      return resolve (parcelas)
+    })
+    // console.log(parcelas)
+  }, 1000)
+}
+
 // função que simula busca num banco que retorna o valor das parcelas:
 
-const calcularParcela = (preco) => {
-  return new Promise((resolve, reject) => {
+const calcularParcela = (preco, parcelas) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      let parcelasDesejadas = 10
-      return resolve(preco / parcelasDesejadas)
+      // console.log(preco)
+      // console.log(parcelas)
+      return resolve(preco / parcelas)
     }, 2000)
   })
 }
 
-comprarProduto("lace")
-async function comprarProduto(produto) {
+comprarProduto("lace", 10 )
+async function comprarProduto(produto, parcelas) {
   try {
     const nome = await buscarPreco(produto)
-    const valorFinal = await calcularParcela(nome.preco)
+    const valorFinal = await calcularParcela(nome.preco, parcelas)
 
-    console.log(`O seu ${nome.nome} custa R$ ${nome.preco.toFixed(2).replace(".",",")} e você pagará em 10x de R$ ${valorFinal.toFixed(2).replace(".",",")}`)
+
+    console.log(`O seu ${nome.nome} custa R$ ${nome.preco.toFixed(2).replace(".",",")} e você pagará em ${parcelas} vezes de R$ ${valorFinal.toFixed(2).replace(".",",")}.`)
   }
   catch (error) {
     console.error("Verificamos um erro:", error)
