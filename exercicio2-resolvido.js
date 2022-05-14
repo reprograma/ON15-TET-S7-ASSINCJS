@@ -11,10 +11,10 @@ valor de retorno no console: `O preço final do seu produto é R$7474,08`
 dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final
 */
 
-function buscarPrecoDolar() {
+buscarPrecoDolar = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({
+        return resolve({
           comercial: "5.03",
           turismo: "5.17",
         });
@@ -22,10 +22,10 @@ function buscarPrecoDolar() {
     });
   }
   
-  function buscarJurosImportacao() {
+buscarJurosImportacao = () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({
+        return resolve({
           juros1: 0.06,
           juros2: 0.11,
           message:
@@ -36,6 +36,17 @@ function buscarPrecoDolar() {
   }
   
   async function calcularValorEmReal(precoEmDolar) {
-    try {} 
-    catch (error) {}
+    try {
+      const precoEmDolar = 1270
+      const valorDolar = await buscarPrecoDolar()
+      const valorReal = (valorDolar.comercial) * precoEmDolar
+      const juros = await buscarJurosImportacao()
+      const valorFinal = valorReal + (valorReal * juros.juros1) + (valorReal * juros.juros2)
+      console.log(`O preço final do seu produto é R$ ${valorFinal.toFixed(2).replace(".",",")}`)
+    } 
+    catch (error) {
+      console.log(`Encontramos um erro:`, error)
+    }
   }
+
+  calcularValorEmReal(1270)

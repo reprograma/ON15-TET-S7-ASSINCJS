@@ -44,5 +44,36 @@ const calcularParcela = (preco) => {
   })
 }
 
-function realizarCompras("Lace")
-async
+//resposta com promise
+const precoProduto = buscarPreco("hormonios")
+precoProduto
+.then((produto) => {
+  const produtoNome = produto.nome
+  const produtoPreco = produto.preco
+
+  const acharParcela = calcularParcela(produtoPreco, produtoNome)
+  acharParcela
+  .then((numeroParcelas) => {
+    const parcelas = numeroParcelas
+    
+    console.log(`Você comprou ${produtoNome}, custa R$ ${produtoPreco.toFixed(2).replace(".",",")}. Parcelando em 10x fica ${parcelas.toFixed(2).replace(".",",")}`)
+  })
+})
+.catch((error) => {
+  console.log("Encontramos um erro: ", error)
+})
+
+
+//resposta com async/await
+async function realizarCompras(produto){
+  try {
+    const nomeProduto = await buscarPreco(produto)
+    const valorParcela =  await calcularParcela(nomeProduto.preco)
+
+    console.log(`Você comprou ${nomeProduto.nome}, custa R$ ${nomeProduto.preco.toFixed(2).replace(".",",")}. Parcelando em 10x fica ${valorParcela.toFixed(2).replace(".",",")}`)
+  }
+  catch(err){
+    console.log(`Encontramos um erro: `, err)
+  }
+}
+realizarCompras("lace")
