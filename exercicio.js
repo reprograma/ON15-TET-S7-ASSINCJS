@@ -8,38 +8,90 @@ ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o 
 
 // função que simula busca num banco que retorna o preço do produto:
 
-function buscarPreco(produto) {
+// function buscarPreco(produto) {
+//     setTimeout(() => {
+//       if (produto === "hormonios") {
+//         return {
+//           nome: "Hormônios",
+//           preco: 99.00
+//         }
+//       } else if (produto === "unhas gel") {
+//         return {
+//           nome: "Unhas em Gel",
+//           preco: 190.00
+//         }
+//       } else if (produto === "lace"){
+//         return {
+//           nome: "Lace",
+//           preco: 3900.00
+//         }
+//       } else {
+//         return "Produto não encontrado"
+//       }
+//   }, 2000)
+// }
+  
+// função que simula busca num banco que retorna o valor das parcelas:
+// function calcularParcela(preco) {
+//   let parcelasDesejadas = 10
+//   setTimeout(() => {
+//     return preco * parcelasDesejadas
+//   }, 2000)
+// }
+  
+//transformando a função em promise 
+
+const calcularParcela = (preco) => {
+  return new Promise ((resolve,reject) => {
+    let parcelasDesejadas = 10
     setTimeout(() => {
+      return resolve(preco / parcelasDesejadas)
+    }, 2000)
+  })
+
+}
+
+// RESPOSTA
+
+// transformando if e else em PROMISE
+
+const promise = (produto) => {
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      let res = {} // Para não repetir o return resolve em todas as linhas, criando um objeto. 
       if (produto === "hormonios") {
-        return {
+        res = {
           nome: "Hormônios",
           preco: 99.00
         }
       } else if (produto === "unhas gel") {
-        return {
+        res = {
           nome: "Unhas em Gel",
           preco: 190.00
         }
       } else if (produto === "lace"){
-        return {
+        res = {
           nome: "Lace",
           preco: 3900.00
         }
       } else {
-        return "Produto não encontrado"
+        res = "Produto não encontrado"
       }
-  }, 2000)
+      return resolve(res) // Resolve obrigatório da Promise 
+    }, 2000)
+  })
 }
-  
-// função que simula busca num banco que retorna o valor das parcelas:
-  
-function calcularParcela(preco) {
-  let parcelasDesejadas = 10
-  setTimeout(() => {
-    return preco * parcelasDesejadas
-  }, 2000)
+calcularPromise()
+async function calcularPromise(){
+  try{
+    const produto = await promise('lace')
+    const parcela = await calcularParcela(produto.preco)
+    console.log(`Sua lace custa ${produto.preco} e você pagará em 10x de ${parcela}.`)
+
+  }catch(error) {
+    console.error('Capturamos um erro: ', error)
+  }
 }
-  
 
 /*
 2. Resolva usando async/await: 
@@ -79,6 +131,17 @@ function buscarJurosImportacao() {
 }
 
 async function calcularValorEmReal(precoEmDolar) {
-  try {} 
-  catch (error) {}
+  try {
+    const precoEmDolar = 1270
+    const valorDoDolar = await buscarPrecoDolar()
+    const valorEmReal = parseFloat(valorDoDolar.comercial)*precoEmDolar //pesquisei no google como transformar string em numero e achei o parsefloat
+    const Juros = await buscarJurosImportacao()
+    const valorFinal = valorEmReal+(valorEmReal*Juros.juros1)+(valorEmReal*Juros.juros2) 
+    console.log(`O preço final do seu produto é ${valorFinal}`)
+       // achei muita constante, está certo?
+  } 
+  catch (error) {
+    console.error('Capturamos um erro, não foi possível realizar o cálculo: ', error)
+  }
 }
+calcularValorEmReal() // não esquecer de chamar a função após a construção da mesma
