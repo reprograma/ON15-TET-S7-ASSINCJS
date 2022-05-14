@@ -40,6 +40,24 @@ function calcularParcela(preco) {
   }, 2000)
 }
   
+buscarPreco("lace", resolver = (error, produto) => {
+  if (error) {
+    return console.error("Erro identificado:", error);
+  }
+  const produtoNome = produto.nome;
+  const produtoPreco = produto.preco;
+
+  calcularParcela(produtoPreco, calcular = (valorParcela) => {
+    if (error) {
+      return console.error("Erro no cálculo ", error);
+    }
+
+    const parcelas = valorParcela;
+    const quantidadeParcelas = produtoPreco / valorParcela;
+
+    console.log(`Sua ${produtoNome} custa R$${produtoPreco.toFixed(2).replace(".", ",")} e você pagará em ${quantidadeParcelas}x de R$${parcelas.toFixed(2).replace(".", ",")}.`);
+  })
+})
 
 /*
 2. Resolva usando async/await: 
