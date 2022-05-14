@@ -23,7 +23,7 @@ const pegarUsuaria = () => {
     return new Promise((resolve, reject) => {
     //criamos uma promise a partir do Objeto Promisse
         setTimeout(() => {
-        //   return reject(new Error('Retornou erro!')) //reject é chamado se a requisição nfoi rejeitada (erro)
+            //return reject(new Error('Retornou erro!')) //reject é chamado se a requisição nfoi rejeitada (erro)
           return resolve({
               //resolve é chamada se a requisição foi resolvida (sucesso)
             nome: "Lucilania",
@@ -61,11 +61,9 @@ const pegarUsuaria = () => {
 // const usuariaPromise = pegarUsuaria()
 // console.log(usuariaPromise)
 
-pegarUsuaria()
-    .then((usuaria) => {
+pegarUsuaria().then((usuaria) => {
     //usamos then para tratar a resposta da promise caso ela tenha sido resolvida, seu parametro (que escolhemos chamar de usuaria) é o retorno da funcão resolve()
-        return pegarEndereco(usuaria.id)
-        .then((endereco) => {
+        return pegarEndereco(usuaria.id).then((endereco) => {
         //podemos encadear vários thens pois seu retorno também é uma promise
             return {
                 usuaria: {
@@ -80,10 +78,8 @@ pegarUsuaria()
                 }
             }
         })
-    })
-    .then((resposta) => {
-        return pegarPedidos(resposta.usuaria.id)
-        .then((pedidos) => {
+    }).then((resposta) => {
+        return pegarPedidos(resposta.usuaria.id).then((pedidos) => {
                 console.log(`
                     Usuária: ${resposta.usuaria.nome}
                     E-mail: ${resposta.usuaria.email}
@@ -91,8 +87,7 @@ pegarUsuaria()
                     Pedidos: ${pedidos.pedido1}, ${pedidos.pedido2}
                 `)
             })
-        })
-    .catch((err) => {
+        }).catch((err) => {
         //usamos catch oara capturar o erro caso a requisição tenha falhado, seu parâmetro é o erro retornado do banco de dados
         console.error("Capturamos um erro: ", err)
     })

@@ -9,37 +9,59 @@ ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o 
 // função que simula busca num banco que retorna o preço do produto:
 
 function buscarPreco(produto) {
+  return new Promise(function(resolve, reject) {
     setTimeout(() => {
-      if (produto === "hormonios") {
-        return {
-          nome: "Hormônios",
-          preco: 99.00
-        }
-      } else if (produto === "unhas gel") {
-        return {
-          nome: "Unhas em Gel",
-          preco: 190.00
-        }
-      } else if (produto === "lace"){
-        return {
-          nome: "Lace",
-          preco: 3900.00
-        }
-      } else {
-        return "Produto não encontrado"
-      }
-  }, 2000)
+          if (produto === "hormonios") {
+            return resolve({
+              nome: "Hormônios",
+              preco: 99.00
+            })
+          } else if (produto === "unhas gel") {
+            return resolve({
+              nome: "Unhas em Gel",
+              preco: 190.00
+            })
+          } else if (produto === "lace"){
+            return resolve({
+              nome: "Lace",
+              preco: 3900.00
+            })
+          } else {
+            return reject(new Error("Produto não encontrado"))
+          }
+      }, 2000)
+  })
+    
 }
   
 // função que simula busca num banco que retorna o valor das parcelas:
   
 function calcularParcela(preco) {
-  let parcelasDesejadas = 10
-  setTimeout(() => {
-    return preco * parcelasDesejadas
-  }, 2000)
+  return new Promise(function(resolve, reject) {
+    let parcelasDesejadas = 10
+    setTimeout(() => {
+      return resolve(preco / parcelasDesejadas)
+    }, 2000)
+  })
 }
-  
+
+buscarPreco("lace").then((produto) => {
+  return calcularParcela(produto.preco).then((valorParcela) => {
+    return {
+      produto: {
+        nome: produto.nome,
+        preco: produto.preco,
+      }, 
+      parcelas: valorParcela,
+    }
+  }).then((resposta) => {
+    console.log(`Sua ${resposta.produto.nome} custa R$${resposta.produto.preco.toFixed(2).replace(".", ",")} e você pagará em ${resposta.produto.preco/resposta.parcelas}x de R$${resposta.parcelas.toFixed(2).replace(".", ",")}`)
+  }).catch((err) => {
+      //usamos catch oara capturar o erro caso a requisição tenha falhado, seu parâmetro é o erro retornado do banco de dados
+      console.error("Capturamos um erro: ", err)
+  })
+})
+
 
 /*
 2. Resolva usando async/await: 
@@ -51,10 +73,9 @@ preço em Real e retornar o valor final
 dados:
 `const precoEmDolar = 1270  //preço em dólar`
 valor de retorno no console: `O preço final do seu produto é R$7474,08`
-dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final
-*/
+dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final */
 
-function buscarPrecoDolar() {
+ function buscarPrecoDolar() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -79,6 +100,17 @@ function buscarJurosImportacao() {
 }
 
 async function calcularValorEmReal(precoEmDolar) {
-  try {} 
-  catch (error) {}
+  try {
+    const cotacaoDolar = await buscarPrecoDolar();
+    const precoReal = cotacaoDolar.comercial * precoEmDolar;
+    const valorJuros = await buscarJurosImportacao();
+    const total = precoReal + (precoReal * valorJuros.juros1) + (precoReal * valorJuros.juros2);
+
+    console.log(`O preço final do seu produto é R$${total.toFixed(2).replace(".", ",")}`)
+  } 
+  catch (error) {
+    console.error('Capturamos um erro: ', error)
+  }
 }
+
+calcularValorEmReal(1270);

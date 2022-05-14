@@ -1,4 +1,4 @@
-//funcion
+/* //function
 
 function somar(numero) {
     console.log(numero + numero)
@@ -10,7 +10,7 @@ function somar(numero) {
 let somar = (numero) => {
     console.log(numero + numero)
     return numero + numero
-}
+} */
 
 // fluxo síncrono/assíncrono    
 
@@ -20,20 +20,23 @@ setTimeout(() => {
     console.log('Esse console vai retornar segundo')
 }, 2000)
 
-console.log('Esse console vai retornar terceiro')
+setTimeout(() => {
+    console.log('Esse console vai retornar terceiro')
+}, 3000)
+
 
 //exemplo
 
 let mostrarPrimeiraParte = () => {
     setTimeout(() => {
         return console.log("Esta mensagem deve ")
-    }, 4000)
+    }, 2000)
 }
 
 let mostrarSegundaParte = () => {
     setTimeout(() => {
         return console.log("completar esta!")
-    }, 6000)
+    }, 4000)
 }
 
 mostrarPrimeiraParte()
@@ -48,6 +51,6 @@ let somar = (numero) => {
         return numero + numero}), 6000
 }
 
-let imprimirSoma = (resultadoSoma) => console.log("print: " + resultadoSoma)
+let imprimirSoma = async (resultadoSoma) => await console.log("print: " + resultadoSoma)
 
 imprimirSoma(somar(3))
