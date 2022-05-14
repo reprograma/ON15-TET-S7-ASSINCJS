@@ -5,55 +5,90 @@ ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o 
 e você pagará em 10x de R$390,00`
 */
 
+// 1ª forma de fazer o exercício usando o if/elseif
+
+// const buscarPreco = (produto) => {
+//   return new Promise ((resolve, reject) => {
+//     setTimeout(() => {
+//       if (produto === "hormonios") {
+//         return resolve ({
+//           nome: "Hormônios",
+//           preco: 99.00
+//         })
+//       } else if (produto === "unhas gel") {
+//         return resolve ({
+//           nome: "Unhas em Gel",
+//           preco: 190.00
+//         })
+//       } else if (produto === "lace") {
+//         return resolve ({
+//           nome: "Lace",
+//           preco: 3900.00
+//         })
+//       } else {
+//         return reject ("Produto não encontrado")
+//       }
+//     }, 2000)
+
+//   }
+//   )}
+
+
+
+// 2ª forma usando o switch, as meninas na monitoria disseram que seria legal apresentar uma outra forma. Não sei se ficou correta.
 
 const buscarPreco = (produto) => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (produto === "hormonios") {
-        return resolve ({
-          nome: "Hormônios",
-          preco: 99.00
-        })
-      } else if (produto === "unhas gel") {
-        return resolve ({
-          nome: "Unhas em Gel",
-          preco: 190.00
-        })
-      } else if (produto === "lace") {
-        return resolve ({
-          nome: "Lace",
-          preco: 3500.00
-        })
-      } else {
-        return reject ("Produto não encontrado")
-      }
-    }, 2000)
-    
-  }
-  )}
+      switch (produto) {
+        case "hormonios":
+          return resolve({
+            nome: "Hormônios",
+            preco: 99.00
+          })
+          break
+        case "unhas gel":
+          return resolve({
+            nome: "Unhas em Gel",
+            preco: 190.00
+          })
+          break
+        case "lace":
+          return resolve({
+            nome: "Lace",
+            preco: 3900.00
+          })
+          break
+          default:
+            return reject("Produto não encontrado")
 
+      }
+    },2000)
+  })
+
+}
 
 // função que simula busca num banco que retorna o valor das parcelas:
 
 const calcularParcela = (preco) => {
-  return new Promise ((resolve, reject) => {
-    setTimeout (() => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
       let parcelasDesejadas = 10
-      return resolve (preco / parcelasDesejadas)
+      return resolve(preco / parcelasDesejadas)
     }, 2000)
   })
 }
 
-comprarProduto("Hormonios")
-async function comprarProduto(produto){
+comprarProduto("lace")
+async function comprarProduto(produto) {
   try {
     const nome = await buscarPreco(produto)
     const valorFinal = await calcularParcela(nome.preco)
 
-    console.log(`O seu ${nome.nome} custa ${nome.preco} e você pagar em 10x de ${valorFinal}`)
+    console.log(`O seu ${nome.nome} custa R$ ${nome.preco.toFixed(2).replace(".",",")} e você pagará em 10x de R$ ${valorFinal.toFixed(2).replace(".",",")}`)
   }
-  catch(error) {
-    console.log("Verificamos um erro:" , error)
+  catch (error) {
+    console.error("Verificamos um erro:", error)
   }
 }
 

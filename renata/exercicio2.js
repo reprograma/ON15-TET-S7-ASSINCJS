@@ -38,24 +38,26 @@ buscarPrecoDolar = () => {
     });
   }
   
-  calcularValorEmReal()
+
+  calcularValorEmReal(1270)
+
   async function calcularValorEmReal(precoEmDolar){
     try {
-      const precoEmDolar = 1270
       const valorDollar = await buscarPrecoDolar()
-      console.log(valorDollar.comercial)
+      // console.log(valorDollar.comercial)
       const valorReal = (valorDollar.comercial)* precoEmDolar
-      console.log(valorReal)
+      // console.log(valorReal)
       const juros = await buscarJurosImportacao()
-      console.log(juros.juros1)
+      // console.log(juros.juros1)
       const valorFinal = valorReal + (valorReal * juros.juros1) + (valorReal * juros.juros2)
   
-      console.log(`O preço final do seu produto é R$ ${valorFinal.toFixed(2)}.`)
+      console.log(`O preço final do seu produto é R$ ${valorFinal.toFixed(2).replace(".",",")}.`)
     }
     catch(error){
       console.log("Verificamos um erro: ", error)
     }
   }
+  
   
   
   
