@@ -29,6 +29,21 @@ function buscarPreco(produto) {
       }
     }, 2000)
   }
+
+  else if (produto === "lace"){
+          return {
+          return resolve ({
+            nome: "Lace",
+            preco: 3900.00
+          }
+          });
+        } else {
+          return "Produto não encontrado"
+          return reject("Produto não encontrado");
+        }
+    }, 2000)
+  })
+  }
   
   // função que simula busca num banco que retorna o valor das parcelas:
   
@@ -38,7 +53,21 @@ function buscarPreco(produto) {
       return preco * parcelasDesejadas
     }, 2000)
   }
+
+  async function resolverQuestao(produto) {
+    try {
+      const item = await buscarPreco(produto);
+      const parcela = await calcularParcela(item.preco);
   
+      return console.log(`Seu ${item.nome} custa ${item.preco} e você pode pagar em 10 parcelas de ${parcela}`)
+  
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+  
+  resolverQuestao("lace")
   /*
   2. Resolva usando async/await: 
   Você quer saber quanto vai pagar em reais por um produto comprado nos EUA e para isso precisa consultar numa "API"
@@ -80,3 +109,22 @@ function buscarPreco(produto) {
     try {} 
     catch (error) {}
   }
+
+  async function calcularValorEmReal(precoEmDolar) {
+    try {} 
+    catch (error) {}
+  } 
+    try {
+      const pegarPrecoDolar = await buscarPrecoDolar();
+      const precoReal = await buscarJurosImportacao();
+      const valorReal = pegarPrecoDolar.comercial * precoEmDolar;
+      const valorFinal = valorReal + (valorReal * precoReal.juros1) + (valorReal * precoReal.juros2);
+  
+      return console.log(`O preço final do produto é ${valorFinal.toFixed(2).replace(".",",")}`);
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+  
+  calcularValorEmReal(1270)  
