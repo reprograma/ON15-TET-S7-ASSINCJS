@@ -1,0 +1,20 @@
+
+1 - CICLO DE VIDA DE UMA APLICAÇÃO JAVA SCRIPT
+    1.1 - setTimaout()
+    1.2 - Event loop
+2 - CALLBACKS
+3 - PROMISES
+4 - ASYNC/AWAIT
+    4.1 - try/catch
+
+
+
+1 - JavaScrip Assincrono 
+
+    - Aprendemos o JavaScrip Sincrono, que é quando digitamos um código e pedimos para visualizar
+    na tela através do console.log --> isso é o JS Sincrono!!!
+
+    - Tudo que está na nossa lista de código é considerado JS Sincrono!
+
+    - Quando precisamos acessar um 
+
