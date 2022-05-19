@@ -1,6 +1,6 @@
 # On15-TodasEmTech-s7-JS-Assíncrono
 
-Esta é a 7ª semana da turma online: Todas em Tech on15 - Back-end, nesta aula do dia 25/09/2021 teremos os seguintes conteúdos:
+Esta é a 7ª semana da turma online: Todas em Tech on15 - Back-end, nesta aula do dia 07/05/2022 teremos os seguintes conteúdos:
 
 - Ciclo de vida de uma aplicação JavaScript;
   - setTimeout();
