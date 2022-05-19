@@ -1,45 +1,69 @@
 /*
 1. Precisamos calcular o valor da parcela de uma Lace de cabelo humano que a Byanka Nicoli decidiu comprar, para isso precisamos 
 descobrir o preço do produto e em seguida o número de parcelas desejadas, a partir das funções a seguir, utilize qualquer uma das
-ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o seguinte retorno no console: 
-
-`Sua Lace custa R$3900,00 e você pagará em 10x de R$390,00`
+ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o seguinte retorno no console: `Sua Lace custa R$3900,00
+e você pagará em 10x de R$390,00`
 */
 
 // função que simula busca num banco que retorna o preço do produto:
 
 function buscarPreco(produto) {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (produto === "hormonios") {
-        return {
+        return resolve({
           nome: "Hormônios",
           preco: 99.00
-        }
+        })
       } else if (produto === "unhas gel") {
-        return {
+        return resolve({
           nome: "Unhas em Gel",
           preco: 190.00
-        }
-      } else if (produto === "lace"){
-        return {
+        })
+      } else if (produto === "lace") {
+        return resolve({
           nome: "Lace",
           preco: 3900.00
-        }
+        })
       } else {
-        return "Produto não encontrado"
+        return reject("Produto não encontrado")
       }
-  }, 2000)
+    }, 2000)
+
+  })
 }
-  
+
 // função que simula busca num banco que retorna o valor das parcelas:
-  
+
 function calcularParcela(preco) {
   let parcelasDesejadas = 10
-  setTimeout(() => {
-    return preco * parcelasDesejadas
-  }, 2000)
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      return resolve(preco / parcelasDesejadas)
+    }, 2000)
+
+  })
 }
-  
+
+
+
+async function calcularValor(produto) {
+  try {
+    const produtoEncontrado = await buscarPreco(produto);
+    let parcela = await calcularParcela(produtoEncontrado.preco)
+    console.log(`Sua ${produtoEncontrado.nome} custa R$${(produtoEncontrado.preco).toFixed(2)} e você pagará em 10x de R$${(parcela).toFixed(2)}`)
+  } catch (error) {
+    console.log("Ocorreu um erro", error)
+  }
+
+}
+
+
+calcularValor("lace")
+
+
+
+
 
 /*
 2. Resolva usando async/await: 
@@ -50,7 +74,7 @@ preço em Real e retornar o valor final
 
 dados:
 `const precoEmDolar = 1270  //preço em dólar`
-valor de retorno no console: `O preço final do seu produto é R$7474,08`
+valor de retorno no console: `O preço final do seu produto é R$*****,**`
 dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valor final
 */
 
@@ -71,14 +95,21 @@ function buscarJurosImportacao() {
       resolve({
         juros1: 0.06,
         juros2: 0.11,
-        message:
-        "os dois juros são aplicados no valor total do produto em real",
+        message: "os dois juros são aplicados no valor total do produto em real",
       });
     }, 1000);
   });
 }
 
 async function calcularValorEmReal(precoEmDolar) {
-  try {} 
-  catch (error) {}
+  try {
+    const valorReal = await buscarPrecoDolar();
+    const converterEmReal = precoEmDolar * valorReal.comercial
+    const juros = await buscarJurosImportacao();
+    console.log(`O preço final do seu produto é R$${(converterEmReal+(converterEmReal*juros.juros1)+(converterEmReal*juros.juros2)).toFixed(2)} `)
+  } catch (error) {
+    console.log("Foi encontrado um erro", error)
+  }
 }
+
+calcularValorEmReal(1270)
