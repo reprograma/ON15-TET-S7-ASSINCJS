@@ -83,13 +83,12 @@ const pegarUsuaria = (callback) => {
   
 
 
+//O CONSOLE NÃO FUNCIONOU POR TER CONCATENAÇÃO COM STRING, SEGUE UMA FORMA POSSÍVEL:
 
-
-//   function resolver(erro, usuaria) {
-//     return console.log('nome da usuária: ' + usuaria.nome)
-//   }
-
-//   pegarUsuaria(resolver)
+// function resolver(erro, usuaria) {
+//   return console.log('nome da usuária: ', usuaria)
+// }
+// pegarUsuaria(resolver)
   
 
 // exemplo
