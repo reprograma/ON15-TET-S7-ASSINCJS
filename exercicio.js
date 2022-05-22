@@ -9,37 +9,56 @@ ferramentas aprendidas nesta aula para resolver o código assíncrono e obter o 
 // função que simula busca num banco que retorna o preço do produto:
 
 function buscarPreco(produto) {
+  return new Promise((resolve, reject) =>{
     setTimeout(() => {
       if (produto === "hormonios") {
-        return {
+        return resolve({
           nome: "Hormônios",
           preco: 99.00
-        }
+        });
       } else if (produto === "unhas gel") {
-        return {
+        return resolve ({
           nome: "Unhas em Gel",
           preco: 190.00
-        }
+        });
       } else if (produto === "lace"){
-        return {
+        return resolve ({
           nome: "Lace",
           preco: 3900.00
-        }
+        });
       } else {
-        return "Produto não encontrado"
+        return reject("Produto não encontrado");
       }
   }, 2000)
+})
 }
   
 // função que simula busca num banco que retorna o valor das parcelas:
   
 function calcularParcela(preco) {
+  return new Promise((resolve, reject) =>{
   let parcelasDesejadas = 10
   setTimeout(() => {
-    return preco * parcelasDesejadas
+    return resolve (preco / parcelasDesejadas);
   }, 2000)
+})
 }
-  
+
+
+async function resolverExercicio(produto) {
+  try {
+    const item = await buscarPreco(produto);
+    const parcela = await calcularParcela(item.preco);
+
+    return console.log(`Seu ${item.nome} custa ${item.preco} e você pode pagar em 10 parcelas de ${parcela}`)
+
+  }
+  catch(error){
+    console.log(error)
+  }
+}
+
+resolverExercicio("lace")
 
 /*
 2. Resolva usando async/await: 
@@ -57,7 +76,7 @@ dica: valor em real + (valor em real * juros1) + (valor em real * juros2) = valo
 function buscarPrecoDolar() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve({
+      return resolve({
         comercial: "5.03",
         turismo: "5.17",
       });
@@ -68,7 +87,7 @@ function buscarPrecoDolar() {
 function buscarJurosImportacao() {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve({
+      return resolve({
         juros1: 0.06,
         juros2: 0.11,
         message:
@@ -79,6 +98,17 @@ function buscarJurosImportacao() {
 }
 
 async function calcularValorEmReal(precoEmDolar) {
-  try {} 
-  catch (error) {}
+  try {
+    const pegarPrecoDolar = await buscarPrecoDolar();
+    const precoReal = await buscarJurosImportacao();
+    const valorReal = pegarPrecoDolar.comercial * precoEmDolar;
+    const valorFinal = valorReal + (valorReal * precoReal.juros1) + (valorReal * precoReal.juros2);
+
+    return console.log(`O preço final do produto é ${valorFinal.toFixed(2).replace(".",",")}`);
+  } 
+  catch (error) {
+    console.log(error)
+  }
 }
+
+calcularValorEmReal(1270) 
